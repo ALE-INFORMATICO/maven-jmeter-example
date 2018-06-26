@@ -1,0 +1,172 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.juanf.sanchez</groupId>
+	<artifactId>pluginMaven</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>pluginMaven</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<log4j2.version>2.9.1</log4j2.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<source>1.8</source>
+		<target>1.8</target>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j2.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<!-- Test Resources -->
+		<testResources>
+			<testResource>
+				<directory>src/test/resources/</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+
+
+
+		<plugins>
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>2.7.0</version>
+				<executions>
+					<execution>
+						<id>jmeter-tests</id>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+						<phase>verify</phase>
+					</execution>
+				</executions>
+				<configuration>
+					
+					<generateReports>false</generateReports>
+					<resultsFileFormat>xml</resultsFileFormat>
+					<testResultsTimestamp>false</testResultsTimestamp>
+					
+				</configuration>
+			</plugin>
+			
+
+
+			
+			<plugin>
+				<groupId>de.codecentric</groupId>
+				<artifactId>jmeter-graph-maven-plugin</artifactId>
+				<version>0.1.0</version>
+				<executions>
+					<execution>
+						<id>create-graphs-collection</id>
+						<goals>
+							<goal>create-graph</goal>
+						</goals>
+						<phase>verify</phase>
+						<configuration>
+							<inputFile>${project.build.directory}/jmeter/results/EjemploBlaze.jtl</inputFile>
+							<graphs>
+								<graph>
+									<pluginType>ThroughputVsThreads</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/ThroughputVsThreads.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>ResponseCodesPerSecond</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/ResponseCodesPerSecond.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>HitsPerSecond</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/HitsPerSecond.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>BytesThroughputOverTime</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/BytesThroughputOverTime.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>ResponseTimesDistribution</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/ResponseTimesDistribution.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>ResponseTimesOverTime</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/ResponseTimesOverTime.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>LatenciesOverTime</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/LatenciesOverTime.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>ResponseTimesPercentiles</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/ResponseTimesPercentiles.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>TransactionsPerSecond</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/TransactionsPerSecond.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>ThreadsStateOverTime</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/ThreadsStateOverTime.png</outputFile>
+								</graph>
+								<graph>
+									<pluginType>TimesVsThreads</pluginType>
+									<width>1920</width>
+									<height>1080</height>
+									<outputFile>${project.build.directory}/jmeter/results/TimesVsThreads.png</outputFile>
+								</graph>
+							</graphs>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			
+		</plugins>
+
+	</build>
+
+</project>
+
